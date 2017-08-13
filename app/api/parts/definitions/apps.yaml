@@ -1,0 +1,98 @@
+  memberRequestModel:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/memberCommon"
+
+  memberCommon:
+    type: "object"
+    required:
+    - "name"
+    - "email"
+    properties:
+      name:
+        description: Full name"
+        type: "string"
+      email:
+        description: "Email address"
+        type: "string"
+      contactNumber:
+        description: "Contact number - mobile or landline"
+        type: "string"
+
+  memberResponseModel:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/memberMaster"
+
+  memberMaster:
+    allOf:
+    - $ref: "#/definitions/memberCommon"
+    - type: "object"
+      properties:
+        id:
+          description: Id of the member
+          type: "integer"
+        createdDate:
+          description: Created date of the member
+          type: "string"
+        updatedDate:
+          description: Updated date of the member
+          type: "string"
+        createdBy:
+          description: "Created by of the record"
+          type: "string"
+        updatedBy:
+          description: "Updated by of the record"
+          type: "string"
+
+  rewardRequestModel:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/rewardCommon"
+
+  rewardCommon:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        description: Name of the reward
+        type: "string"
+
+  rewardResponseModel:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/rewardMaster"
+
+  rewardsResponseModel:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/rewardMaster"
+
+  rewardMaster:
+    allOf:
+    - $ref: "#/definitions/rewardCommon"
+    - type: "object"
+      properties:
+        id:
+          description: Id of the reward
+          type: "integer"
+        createdDate:
+          description: Created date of the reward
+          type: "string"
+        updatedDate:
+          description: Updated date of the reward
+          type: "string"
+        createdBy:
+          description: Created by of the reward
+          type: "string"
+        updatedBy:
+          description: Updated by of the reward
+          type: "string"

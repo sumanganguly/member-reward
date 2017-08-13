@@ -1,0 +1,18 @@
+---
+swagger: "2.0"
+info:
+  description: Manage member and rewards
+  version: "1.0.0"
+  title: "Member Reward API"
+  license:
+    name: "MIT"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8082"
+basePath: "/api/v1"
+tags:
+- name: "memberReward"
+  description: |
+    Manage Member and rewards
+schemes:
+- "http"
+paths:

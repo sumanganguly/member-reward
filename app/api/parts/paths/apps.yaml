@@ -1,0 +1,236 @@
+  /members:
+    post:
+      tags:
+      - "System"
+      operationId: "createMember"
+      summary: "submit member details"
+      description: |
+        Submitting member details in the system
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "A JSON object instance."
+        required: true
+        schema:
+          $ref: "#/definitions/memberRequestModel"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/memberResponseModel"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        409:
+          description: "Conflict"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+
+  /members/{memberId}:
+    get:
+      tags:
+      - "System"
+      operationId: "retrieveMember"
+      summary: "retrieve member details"
+      description: |
+        Retrieve member details using member id
+      parameters:
+      - in: "path"
+        name: "memberId"
+        description: "memberId to retrieve member details"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/memberResponseModel"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+    delete:
+      tags:
+      - "System"
+      operationId: "deleteMember"
+      summary: "delete member details"
+      description: |
+        Delete member details using member id
+      parameters:
+      - in: "path"
+        name: "memberId"
+        description: "memberId to delete member details"
+        required: true
+        type: "integer"
+      responses:
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+
+  /rewards:
+    post:
+      tags:
+      - "System"
+      operationId: "createReward"
+      summary: "submit new reward"
+      description: |
+        Submitting new Reward details
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "A JSON object instance."
+        required: true
+        schema:
+          $ref: "#/definitions/rewardRequestModel"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/rewardResponseModel"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        409:
+          description: "Conflict"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+
+  /rewards/{rewardId}:
+    get:
+      tags:
+      - "System"
+      operationId: "retrieveReward"
+      summary: "retrieve reward details"
+      description: |
+        Retrieve reward details using reward id
+      parameters:
+      - in: "path"
+        name: "rewardId"
+        description: "rewardId to retrieve reward details"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/rewardResponseModel"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+    delete:
+      tags:
+      - "System"
+      operationId: "deleteReward"
+      summary: "delete reward details"
+      description: |
+        Delete reward details using reward id
+      parameters:
+      - in: "path"
+        name: "rewardId"
+        description: "rewardId to delete reward details"
+        required: true
+        type: "integer"
+      responses:
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+
+  /members/{memberId}/rewards/{rewardId}:
+    put:
+      tags:
+      - "System"
+      operationId: "associateReward"
+      summary: "associate reward with member"
+      description: |
+        Associate reward with member based on path parameters merberId and rewardId
+      parameters:
+      - in: "path"
+        name: "memberId"
+        description: "memberId to be associtaed with reward"
+        required: true
+        type: "integer"
+      - in: "path"
+        name: "rewardId"
+        description: "rewardId to be associated with member"
+        required: true
+        type: "integer"
+      responses:
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
+
+  /members/{memberId}/rewards:
+    get:
+      tags:
+      - "System"
+      operationId: "retrieveMemberRewards"
+      summary: "retrieve all rewards associated with a member"
+      description: |
+        Retrieve all rewards associated with a member
+      parameters:
+      - in: "path"
+        name: "memberId"
+        description: "memberId to be associtaed with reward"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/rewardsResponseModel"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Apps"
