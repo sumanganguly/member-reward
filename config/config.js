@@ -1,14 +1,12 @@
 const CommonLogger = require('../logger')
 const logger = CommonLogger.getLogger('member-reward');
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 const configSettings = {
   'ci': {
     'label': 'local',
     'http': {
       'address': 'localhost',
-      'port': 8082,
+      'port': 80,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -18,7 +16,7 @@ const configSettings = {
     'label': 'local',
     'http': {
       'address': 'localhost',
-      'port': 8082,
+      'port': 80,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -28,37 +26,17 @@ const configSettings = {
     'label': 'dev',
     'http': {
       'address': 'localhost',
-      'port': 8082,
+      'port': 80,
       'requestCert': false,
       'rejectUnauthorized': false
     },
     'logger': logger
   },
-  'st': {
+  'test': {
     'label': 'test',
     'http': {
       'address': 'localhost',
-      'port': 8082,
-      'requestCert': false,
-      'rejectUnauthorized': false
-    },
-    'logger': logger
-  },
-  'sit': {
-    'label': 'test',
-    'http': {
-      'address': 'localhost',
-      'port': 8082,
-      'requestCert': false,
-      'rejectUnauthorized': false
-    },
-    'logger': logger
-  },
-  'nft': {
-    'label': 'test',
-    'http': {
-      'address': 'localhost',
-      'port': 8082,
+      'port': 80,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -68,7 +46,7 @@ const configSettings = {
     'label': 'test',
     'http': {
       'address': 'localhost',
-      'port': 8082,
+      'port': 80,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -78,7 +56,7 @@ const configSettings = {
     'label': 'prod',
     'http': {
       'address': 'localhost',
-      'port': 8082,
+      'port': 80,
       'requestCert': false,
       'rejectUnauthorized': false
     },

@@ -9,7 +9,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "localhost:8082",
+  "host": "localhost:80",
   "basePath": "/api/v1",
   "tags": [
     {
@@ -390,7 +390,13 @@
       }
     },
     "errorModel": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "nessage to the consumer reagrding the error"
+        }
+      }
     },
     "ping": {
       "type": "object",
@@ -416,11 +422,11 @@
       ],
       "properties": {
         "name": {
-          "description": "Full name\"",
+          "description": "Full name of the member",
           "type": "string"
         },
         "email": {
-          "description": "Email address",
+          "description": "Email address of the member",
           "type": "string"
         },
         "contactNumber": {

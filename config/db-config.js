@@ -3,50 +3,38 @@ const dbConfig = {
   'ci': {
     host: 'localhost',
     user: 'root',
-    password: 'suman_gang',
+    password: 'root',
     database: 'member-reward'
   },
   'local': {
     host: 'localhost',
     user: 'root',
-    password: 'suman_gang',
+    password: 'root',
     database: 'member-reward'
   },
   'dev': {
-    'readThroughput': 15,
-    'writeThroughput': 5,
-    'timeout': 5000,
-    'dbEnvironment': process.env.AWS_ENV || 'dev'
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'member-reward'
   },
-  'st': {
-    'readThroughput': 15,
-    'writeThroughput': 5,
-    'timeout': 5000,
-    'dbEnvironment': process.env.AWS_ENV || 'st'
-  },
-  'sit': {
-    'readThroughput': 15,
-    'writeThroughput': 5,
-    'timeout': 5000,
-    'dbEnvironment': process.env.AWS_ENV || 'sit'
-  },
-  'nft': {
-    'readThroughput': 15,
-    'writeThroughput': 5,
-    'timeout': 5000,
-    'dbEnvironment': process.env.AWS_ENV || 'nft'
+  'test': {
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'member-reward'
   },
   'preprod': {
-    'readThroughput': 15,
-    'writeThroughput': 5,
-    'timeout': 5000,
-    'dbEnvironment': process.env.AWS_ENV || 'preprod'
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'member-reward'
   },
   'prod': {
-    'readThroughput': 15,
-    'writeThroughput': 5,
-    'timeout': 5000,
-    'dbEnvironment': process.env.AWS_ENV || 'prod'
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'member-reward'
   }
 }
 

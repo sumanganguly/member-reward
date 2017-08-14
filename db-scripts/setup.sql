@@ -1,11 +1,3 @@
-root@lacalhost: vSfHJf<DH9hu
-sudo /usr/local/mysql/support-files/mysql.server start 
-sudo /usr/local/mysql/support-files/mysql.server stop 
-
-/usr/local/mysql/bin
-./mysql -u root -p
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'suman_gang';
-
 CREATE SCHEMA `member-reward` ;
 
 CREATE TABLE `member-reward`.`members` (
@@ -48,9 +40,3 @@ ALTER TABLE `member-reward`.`member_rewards`
 ADD CONSTRAINT `member_reward_reward_id`
   FOREIGN KEY (`reward_id`)
   REFERENCES `member-reward`.`rewards` (`reward_id`);
-
-
-##
-drop table member_rewards;
-drop table rewards;
-drop table members;

@@ -27,22 +27,20 @@ let components = api.readSpec();
 let spec = components.info;
 // load paths
 for (let pathKey in components.parts) {
-  spec += components.parts[pathKey].path
+  spec += components.parts[pathKey].path;
 }
 // these elements must be include in any app
 spec += components.errors;
 
 // load definitions
 for (let defnKey in components.parts) {
-  spec += components.parts[defnKey].defn
+  spec += components.parts[defnKey].defn;
 }
-
-fs.writeFileSync('./app/api/swagger.yaml', spec);
 
 let swaggerDoc = jsyaml.safeLoad(spec);
 
 // to see what the combined yaml looks like uncomment the below
-swaggerHelpers.convertYaml('./app/api/swagger.json', swaggerDoc);
+fs.writeFileSync('./app/api/swagger.json', JSON.stringify(swaggerDoc, null, 2));
 logger.debug('Swagger definition generated');
 
 // Start the server
@@ -50,7 +48,6 @@ const serverPort = config.http.port;
 const serverAddress = config.http.address;
 
 if (serverAddress && serverPort) {
-  console.log('swaggerDoc.host=' + swaggerDoc.host);
   swaggerDoc.host = serverAddress + ':' + serverPort;
 }
 
@@ -61,13 +58,12 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerMetadata());
 
   // Validate Swagger requests
-  app.use(middleware.swaggerValidator());
+  app.use(middleware.swaggerValidator({ validateResponse: true }));
 
   // Proper error handler for Swagger validation error
   app.use((err, req, res, next) => {
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify({ errors: [ err ] }))
-  })
+    swaggerHelpers.processSwaggerValidationError(err, req, res, next);
+  });
 
   // Route validated requests to appropriate controller
   app.use(middleware.swaggerRouter(options));
@@ -78,13 +74,5 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     swaggerUi: '/docs'}
   ));
 });
-
-logger.debug('Middleware and Swagger api-docs uri defined');
-
-// redirect errors to a helper that sends a conformant error status
-app.use(function (err, req, res, next) {
-  swaggerHelpers.processError(err, req, res, next);
-});
-logger.debug('Swagger error handler defined');
 
 module.exports = app;

@@ -1,5 +1,4 @@
 definitions:
-  # standard error messages
   errors:
     type: "object"
     properties:
@@ -10,3 +9,7 @@ definitions:
 
   errorModel:
     type: "object"
+    properties:
+      message:
+        type: string
+        description: nessage to the consumer reagrding the error

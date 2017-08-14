@@ -11,13 +11,13 @@
     - "email"
     properties:
       name:
-        description: Full name"
+        description: Full name of the member
         type: "string"
       email:
-        description: "Email address"
+        description: Email address of the member
         type: "string"
       contactNumber:
-        description: "Contact number - mobile or landline"
+        description: Contact number - mobile or landline
         type: "string"
 
   memberResponseModel:
@@ -41,10 +41,10 @@
           description: Updated date of the member
           type: "string"
         createdBy:
-          description: "Created by of the record"
+          description: Created by of the record
           type: "string"
         updatedBy:
-          description: "Updated by of the record"
+          description: Updated by of the record
           type: "string"
 
   rewardRequestModel:

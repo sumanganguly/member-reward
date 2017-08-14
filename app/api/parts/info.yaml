@@ -7,7 +7,7 @@ info:
   license:
     name: "MIT"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "localhost:8082"
+host: "localhost:80"
 basePath: "/api/v1"
 tags:
 - name: "memberReward"
