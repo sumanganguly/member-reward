@@ -3,7 +3,7 @@ info:
   description: Manage member and rewards
   version: "1.0.0"
   title: "Member Reward API"
-host: "localhost:80"
+host: "localhost:8000"
 basePath: "/api/v1"
 tags:
 - name: "memberReward"

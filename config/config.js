@@ -6,7 +6,7 @@ const configSettings = {
     'label': 'local',
     'http': {
       'address': 'localhost',
-      'port': 80,
+      'port': 8000,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -16,7 +16,7 @@ const configSettings = {
     'label': 'local',
     'http': {
       'address': 'localhost',
-      'port': 80,
+      'port': 8000,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -26,7 +26,7 @@ const configSettings = {
     'label': 'dev',
     'http': {
       'address': 'localhost',
-      'port': 80,
+      'port': 8000,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -36,7 +36,7 @@ const configSettings = {
     'label': 'test',
     'http': {
       'address': 'localhost',
-      'port': 80,
+      'port': 8000,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -46,7 +46,7 @@ const configSettings = {
     'label': 'test',
     'http': {
       'address': 'localhost',
-      'port': 80,
+      'port': 8000,
       'requestCert': false,
       'rejectUnauthorized': false
     },
@@ -56,7 +56,7 @@ const configSettings = {
     'label': 'prod',
     'http': {
       'address': 'localhost',
-      'port': 80,
+      'port': 8000,
       'requestCert': false,
       'rejectUnauthorized': false
     },

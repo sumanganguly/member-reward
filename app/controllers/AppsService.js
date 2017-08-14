@@ -162,7 +162,7 @@ module.exports.deleteMember = function deleteMember(req, res, next) {
   logger.debug('deleteMember: delete member request data, memberId: %s', memberId);
   DBModelHelper.getMember(memberId)
   .then((result) => {
-    if (result && result.length > 0) {
+    if (result && result.data) {
       logger.debug('deleteMember: member details retrieved from database');
       return DBModelHelper.deleteMemberRewards({memberId: memberId});
     } else {

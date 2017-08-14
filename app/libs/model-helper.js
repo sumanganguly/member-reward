@@ -15,9 +15,7 @@ class DBModelHelper {
           resolve(result.insertId);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'addMember: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'addMember: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -33,20 +31,20 @@ class DBModelHelper {
               id: result[0].member_id,
               name: result[0].member_name,
               email: result[0].member_email,
-              contactNumber: result[0].member_contact,
               createdDate: utility.parseUTCFormattedDateTimeMilis(result[0].member_created_date),
               updatedDate: utility.parseUTCFormattedDateTimeMilis(result[0].member_updated_date),
               createdBy: result[0].member_created_by,
               updatedBy: result[0].member_updated_by
             };
+            if (result[0].member_contact) {
+              member.data.contactNumber = result[0].member_contact;
+            }
           }
           dbUtility.end();
           resolve(member);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'getMember: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'getMember: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -60,9 +58,7 @@ class DBModelHelper {
           resolve(result.insertId);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'addReward: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'addReward: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -87,9 +83,7 @@ class DBModelHelper {
           resolve(reward);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'getReward: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'getReward: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -97,7 +91,7 @@ class DBModelHelper {
   static getSpecificMemberReward(memberId, rewardId) {
     return new Promise((resolve, reject) => {
       const dbUtility  =  new DBUtility();
-      dbUtility.executeQuery('select member_id, reward_id, member_rewards_created_date, member_rewards_updated_date, member_rewards_created_by, member_rewards_updated_by from rewards where member_id = ? and rewards_id = ?', [memberId, rewardId])
+      dbUtility.executeQuery('select member_id, reward_id, member_rewards_created_date, member_rewards_updated_date, member_rewards_created_by, member_rewards_updated_by from member_rewards where member_id = ? and reward_id = ?', [memberId, rewardId])
         .then((result) => {
           let memberReward = {};
           if (result && result.length > 0) {
@@ -114,9 +108,7 @@ class DBModelHelper {
           resolve(memberReward);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'getSpecificMemberReward: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'getSpecificMemberReward: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -130,9 +122,7 @@ class DBModelHelper {
           resolve(result.insertId);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'addMemberReward: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'addMemberReward: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -159,9 +149,7 @@ class DBModelHelper {
           resolve(rewards);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'getMemberAllRewards: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'getMemberAllRewards: Error occurred while processing request', reject, err);
         });
     });
   }    
@@ -184,9 +172,7 @@ class DBModelHelper {
           resolve(result.affectedRows);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'deleteMemberRewards: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'deleteMemberRewards: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -200,9 +186,7 @@ class DBModelHelper {
           resolve(result.affectedRows);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'deleteMember: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'deleteMember: Error occurred while processing request', reject, err);
         });
     });
   }
@@ -216,12 +200,16 @@ class DBModelHelper {
           resolve(result.affectedRows);
         })
         .catch(function (err) {
-          dbUtility.end();
-          logger.error(err, 'deleteRewards: Error occurred while processing request');
-          reject(err);
+          errorCleanUp(dbUtility, 'deleteRewards: Error occurred while processing request', reject, err);
         });
     });
   }
 }
+
+const errorCleanUp = (dbUtility, message, reject, err) => {
+  dbUtility.end();
+  logger.error(err, message);
+  reject(err);
+};
 
 module.exports = DBModelHelper;
