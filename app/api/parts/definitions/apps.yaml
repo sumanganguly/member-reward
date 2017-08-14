@@ -96,3 +96,4 @@
         updatedBy:
           description: Updated by of the reward
           type: "string"
+

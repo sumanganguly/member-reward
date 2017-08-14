@@ -13,3 +13,4 @@ definitions:
       message:
         type: string
         description: nessage to the consumer reagrding the error
+

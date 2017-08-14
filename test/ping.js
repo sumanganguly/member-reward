@@ -1,6 +1,6 @@
-var test = require('tape');
-var request = require('supertest');
-var app = require('../app');
+const test = require('tape');
+const request = require('supertest');
+const app = require('../app');
 
 test('ping test', function(t) {
   request(app)
