@@ -4,7 +4,6 @@ const connect = require('connect');
 const swaggerTools = require('swagger-tools');
 const swaggerHelpers = require('./libs/swagger-utility');
 const jsyaml = require('js-yaml');
-const api = require('./api');
 const config = require('../config/config');
 const logger = config.logger;
 const fs = require('fs');
@@ -15,33 +14,10 @@ logger.debug('Configuring the application now');
 
 // swaggerRouter configuration
 const options = {
-  swaggerUi: '/swagger.json',
-  controllers: './app/controllers',
-  useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
+  controllers: './app/controllers'
 };
 
-// read in the parts of the swagger spec
-let components = api.readSpec();
-
-// now combine them into a complete document
-let spec = components.info;
-// load paths
-for (let pathKey in components.parts) {
-  spec += components.parts[pathKey].path;
-}
-// these elements must be include in any app
-spec += components.errors;
-
-// load definitions
-for (let defnKey in components.parts) {
-  spec += components.parts[defnKey].defn;
-}
-
-let swaggerDoc = jsyaml.safeLoad(spec);
-
-// to see what the combined yaml looks like uncomment the below
-fs.writeFileSync('./app/api/swagger.json', JSON.stringify(swaggerDoc, null, 2));
-logger.debug('Swagger definition generated');
+let swaggerDoc = jsyaml.safeLoad(fs.readFileSync(__dirname.concat('/api/swagger.yaml')));
 
 // Start the server
 const serverPort = config.http.port;
@@ -69,9 +45,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerRouter(options));
 
   // Serve the Swagger documents and Swagger UI
-  app.use(middleware.swaggerUi({
-    apiDocs: '/api-docs',
-    swaggerUi: '/docs'}
+  app.use(middleware.swaggerUi({apiDocs: '/api-docs', swaggerUi: '/docs'}
   ));
 });
 
