@@ -1,0 +1,41 @@
+Q1 Answer:
+
+Improvements
+ 1. There is no load balancer between the API Gateway and the application instances (API 1, API 2,..). Need ELB to distribute traffic among the application instances. Also in case one application isntance is failed, request will still go to the other and there will not be any down-time.
+ 2. Multi-AZ is not mentioned on Postgres SQL database and in case of intance failure, the whole solution will be down. Multi-AZ needs to be setup for disaster recovery.
+ 3. Read Replicas need to be setup to improve performance so that all read traffic goes to read replicas and write traffic only goes to the primary database.
+ 4. Socket Service is directly communicating with API 2 and API 3. Need an ELB to distribute the traffic and in case one application isntance is failed, request will still go to the other and there will not be any down-time.
+ 
+Security Risk
+ API Gateway is directly accessing the private subnet and that could cause a big security risk as its exposed to external world. API Gateway should be able to access applications (webservers) in public subnet and then allow connection to private subnet on specific ports from public subnet security group only.
+
+Performance Risk
+ Read Replicas need to be setup in Postgres SQL database to improve system performance so that all read traffic will go to Read Replicas.
+ ELB need to be setup between API Gateway and application API instances to distribute the traffic to reduce load from any specific API.
+ 
+
+Q2 Answer:
+In AWS, we generally pay for three things: compute, storage, and data transfer out. When we are not sure about the reasons why the cost is increasing, we can proactively imeplement the following to identify the factors for increasing cost:
+ 1. To monitor reports & alerts around set-up, spend, usage, billing etc.
+ 2. Identify idle resources
+ 3. AWS Trusted Advisor to run multiple configuration checks and recommend savings
+ 4. Amazon Cloudwatch to provides resource utilization information
+ 5. Match resources and workloads by choosing the right instance types that meet your basic requirements
+
+Q3 Answer:
+Outsourcing software development has proven to be a great success for many companies worldwide. Following are the advantages and disadvantages for the same:
+
+Advantages:
+	1. Concentrating on core process rather than the supporting ones - No in hsouse IT talent required, just concentrate of core business.
+	2. Reduced operational and recruitment costs
+	3. Effectively the tasks can be completed faster and with better quality output. Vendors are more expertised on that area.
+	4. Offshoring development will reduce the cost.
+
+Disadvantages:
+	1. Risk of exposing confidential data
+	2. Sub-standard quality output if proper partner is not choosen
+	3. Hidden costs in contract
+	4. Lack of customer focus - if the vendor is managing lots of customers, they may lack complete focus on your organization
+	
+	
+DevOps is a practice that should be developed within an organization as it helps automating and monitoring the process of software integration, continuous improvement, testing, deployment, and infrastructure changes by establishing a culture and environment where building, testing, and releasing software can happen rapidly, frequently, and more reliably.

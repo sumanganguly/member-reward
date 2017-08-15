@@ -18,9 +18,10 @@ Application uses default loglevel as debug, to change the level, please set the 
 
 Application expects environments as - `ci, local, dev, test, preprod, prod`. Default is - `local`. To change environment set environment variable `APP_ENV `
 
-## testing ##
+## Testing ##
 
 Run command - `npm test` to run unit tests and super tests (integration/behavior test)
+
 Run command - `npm run coverage` to run super tests (integration/behavior test)
 
 Note: No unit tests has been written for MySQL utilities as its expected to be tested as part of super tests (integration/behavior test)
