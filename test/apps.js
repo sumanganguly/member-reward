@@ -8,19 +8,19 @@ test('should be able to create, retrieve and delete a member', function (t) {
   request(app)
     .post('/api/v1/members')
     .send({data: {name: 'Suman', email: 'suman@test.com'}})
-    .expect(200)
+    .expect(202)
     .end(function(err, res) {
       t.error(err, 'member successfully created');
-      const memberId = res.body.data.id;
-
+      const memberLocation = res.header.location;
+      console.log('res.header: ' + JSON.stringify(res.header));
       request(app)
-      .get('/api/v1/members/' + memberId)
+      .get(memberLocation)
       .expect(200)
       .end(function(err, res) {
         t.error(err, 'member successfully retrieved');
 
         request(app)
-        .delete('/api/v1/members/' + memberId)
+        .delete(memberLocation)
         .expect(204)
         .end(function(err, res) {
           t.error(err, 'member successfully deleted');
@@ -34,19 +34,19 @@ test('should be able to create, retrieve and delete a reward', function (t) {
   request(app)
     .post('/api/v1/rewards')
     .send({data: {name: 'test eward'}})
-    .expect(200)
+    .expect(202)
     .end(function(err, res) {
       t.error(err, 'rewards successfully created');
-      const rewardId = res.body.data.id;
+      const rewardLocation = res.header.location;
 
       request(app)
-      .get('/api/v1/rewards/' + rewardId)
+      .get(rewardLocation)
       .expect(200)
       .end(function(err, res) {
         t.error(err, 'rewards successfully retrieved');
 
         request(app)
-        .delete('/api/v1/rewards/' + rewardId)
+        .delete(rewardLocation)
         .expect(204)
         .end(function(err, res) {
           t.error(err, 'rewards successfully deleted');
@@ -56,43 +56,45 @@ test('should be able to create, retrieve and delete a reward', function (t) {
     });
 });
 
+
 test('should be able to create a member, then create reward and associate reawrd and delete', function (t) {
   request(app)
     .post('/api/v1/members')
     .send({data: {name: 'Suman', email: 'suman@test.com', contactNumber: '0444444444'}})
-    .expect(200)
+    .expect(202)
     .end(function(err, res) {
       t.error(err, 'member successfully created');
-      const memberId = res.body.data.id;
-
+      const memberId = res.header.location.substring(res.header.location.lastIndexOf('/') + 1, res.header.location.length);
+      const memberLocation = res.header.location;
       request(app)
       .post('/api/v1/rewards')
       .send({data: {name: 'new reawrd'}})
-      .expect(200)
+      .expect(202)
       .end(function(err, res) {
         t.error(err, 'reward successfully created');
-        const rewardId = res.body.data.id;
+        const rewardId = res.header.location.substring(res.header.location.lastIndexOf('/') + 1, res.header.location.length);
+        const rewardLocation = res.header.location;
 
         request(app)
         .put('/api/v1/members/' + memberId + '/rewards/' + rewardId)
-        .expect(204)
+        .expect(202)
         .end(function(err, res) {
           t.error(err, 'reward successfully added to the member');
 
           request(app)
-          .get('/api/v1/members/' + memberId + '/rewards')
+          .get(res.header.location)
           .expect(200)
           .end(function(err, res) {
             t.error(err, 'member rewards successfully retrieved');
 
             request(app)
-            .delete('/api/v1/members/' + memberId)
+            .delete(memberLocation)
             .expect(204)
             .end(function(err, res) {
               t.error(err, 'member successfully deleted');
 
               request(app)
-              .delete('/api/v1/rewards/' + rewardId)
+              .delete(rewardLocation)
               .expect(204)
               .end(function(err, res) {
                 t.error(err, 'reward successfully deleted');
@@ -180,13 +182,13 @@ test('should be able to create a member then error for invalid reward associatio
   request(app)
     .post('/api/v1/members')
     .send({data: {name: 'Suman', email: 'suman@test.com', contactNumber: '0444444444'}})
-    .expect(200)
+    .expect(202)
     .end(function(err, res) {
       t.error(err, 'member successfully created');
-      const memberId = res.body.data.id;
+      const memberLocation = res.header.location;
 
       request(app)
-      .put('/api/v1/members/' + memberId + '/rewards/112233')
+      .put(memberLocation + '/rewards/112233')
       .expect(404)
       .end(function(err, res) {
         t.error(err, 'Reward not found error');

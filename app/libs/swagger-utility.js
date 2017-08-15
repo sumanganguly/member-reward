@@ -24,7 +24,7 @@ module.exports.sendResponse = function sendResponse(statusCode, obj, req, res) {
   switch (statusCode) {
   case 200:
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(obj || {}, null, 2));
+    res.end(JSON.stringify(obj, null, 2));
     break;
   case 204:
     res.end();
@@ -42,11 +42,9 @@ module.exports.sendResponse = function sendResponse(statusCode, obj, req, res) {
 */
 module.exports.processSwaggerValidationError = function processSwaggerValidationError(err, req, res, next) {
   let errors = [];
-  if (err.results && err.results.errors) {
-    err.results.errors.forEach(function(element) {
-      errors.push({message: element.message});
-    }, this);
-  }
+  err.results.errors.forEach(function(element) {
+    errors.push({message: element.message});
+  }, this);
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ errors: errors}));
 };

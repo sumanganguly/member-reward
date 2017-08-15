@@ -28,16 +28,14 @@ paths:
         schema:
           $ref: "#/definitions/memberRequestModel"
       responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/memberResponseModel"
+        202:
+          description: "Accepted"
+          headers:
+            Location:
+              type: "string"
+              description: "The href to retrieve the member details"
         400:
           description: "Bad Request"
-          schema:
-            $ref: "#/definitions/errors"
-        409:
-          description: "Conflict"
           schema:
             $ref: "#/definitions/errors"
         500:
@@ -69,11 +67,16 @@ paths:
           description: "Bad Request"
           schema:
             $ref: "#/definitions/errors"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/errors"
         500:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/errors"
       x-swagger-router-controller: "Apps"
+
     delete:
       tags:
       - "System"
@@ -92,6 +95,10 @@ paths:
           description: "No Content"
         400:
           description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        404:
+          description: "Not Found"
           schema:
             $ref: "#/definitions/errors"
         500:
@@ -116,16 +123,14 @@ paths:
         schema:
           $ref: "#/definitions/rewardRequestModel"
       responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: "#/definitions/rewardResponseModel"
+        202:
+          description: "Accepted"
+          headers:
+            Location:
+              type: "string"
+              description: "The href to retrieve the reward details"
         400:
           description: "Bad Request"
-          schema:
-            $ref: "#/definitions/errors"
-        409:
-          description: "Conflict"
           schema:
             $ref: "#/definitions/errors"
         500:
@@ -157,11 +162,16 @@ paths:
           description: "Bad Request"
           schema:
             $ref: "#/definitions/errors"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/errors"
         500:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/errors"
       x-swagger-router-controller: "Apps"
+
     delete:
       tags:
       - "System"
@@ -180,6 +190,10 @@ paths:
           description: "No Content"
         400:
           description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        404:
+          description: "Not Found"
           schema:
             $ref: "#/definitions/errors"
         500:
@@ -208,10 +222,18 @@ paths:
         required: true
         type: "integer"
       responses:
-        204:
-          description: "No Content"
+        202:
+          description: "Accepted"
+          headers:
+            Location:
+              type: "string"
+              description: "The href to retrieve the rewards for a member association details"
         400:
           description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        404:
+          description: "Not Found"
           schema:
             $ref: "#/definitions/errors"
         500:
@@ -241,6 +263,10 @@ paths:
             $ref: "#/definitions/rewardsResponseModel"
         400:
           description: "Bad Request"
+          schema:
+            $ref: "#/definitions/errors"
+        404:
+          description: "Not Found"
           schema:
             $ref: "#/definitions/errors"
         500:
@@ -387,4 +413,3 @@ definitions:
     properties:
         message:
           type: "string"
-
